@@ -9,7 +9,7 @@ export default function Home() {
 
       <header className="hr-hero">
         <Image
-          src="/images/headerimagetr.png"
+          src="/images/headerimagetrans.png"
           alt="HumanRobot"
           width={6250}
           height={2084}
