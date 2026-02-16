@@ -46,11 +46,15 @@ export default function Home() {
             />
           ) : (
             <div className="hr-mint-placeholder">
-              <p className="hr-mint-status">Transmission locked.</p>
-              <p>
+              <p className="hr-mint-status">ACCESS DENIED: Transmission locked</p>
+              <p className="hr-mint-status">...</p>
+              <p className="hr-mint-status">: REBOOT REQUIRED</p>
+              <p className="hr-mint-status">...</p>
+              <p className="hr-mint-status">: TERMINATING</p>
+              {/* <p>
                 Mint URL pending. Add{" "}
                 <code>NEXT_PUBLIC_NFTS2ME_MINT_URL</code> to unlock this module.
-              </p>
+              </p> */}
             </div>
           )}
         </section>
