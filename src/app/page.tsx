@@ -27,7 +27,7 @@ export default function Home() {
 
       <section className="hr-panel hr-image-panel">
         <Image
-          src="/images/teaser.png"
+          src="/images/teaser3.png"
           alt="HumanRobot teaser art"
           width={1200}
           height={1200}
