@@ -8,10 +8,20 @@ export default function Home() {
       <div className="hr-grid" aria-hidden />
 
       <header className="hr-header">
-        <p className="hr-kicker">ApeChain Drop</p>
-        <h1 className="hr-title">HumanRobot</h1>
-        <p className="hr-subtitle hr-accent">
+        {/* <p className="hr-kicker">ApeChain Drop</p> */}
+        <Image
+          src="/images/headerimage.png"
+          alt="HumanRobot"
+          width={6250}
+          height={2084}
+          className="hr-title-image"
+          priority
+        />
+        <p className="hr-subtitle">
           :  wake up and choose violence
+        </p>
+       <p className="hr-subtitle">
+          :  coming soon to ApeChain
         </p>
       </header>
 
@@ -27,7 +37,7 @@ export default function Home() {
       </section>
 
       <section className="hr-panel hr-mint-panel">
-        <h2 className="hr-panel-title">Mint Interface</h2>
+        <h2 className="hr-panel-title">Mint humanRobot</h2>
         {mintUrl ? (
           <iframe
             src={mintUrl}

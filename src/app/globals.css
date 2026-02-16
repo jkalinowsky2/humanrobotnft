@@ -43,7 +43,7 @@ body {
 .hr-header {
   position: relative;
   z-index: 1;
-  width: min(760px, 100%);
+  width: min(1280px, 100%);
   text-align: center;
 }
 
@@ -63,6 +63,14 @@ body {
   text-transform: uppercase;
   color: #eef7ff;
   text-shadow: 0 0 24px rgba(126, 181, 229, 0.4);
+}
+
+.hr-title-image {
+  display: block;
+  width: min(2000px, 96%);
+  height: auto;
+  margin: 0.5rem auto 0;
+  filter: drop-shadow(0 0 20px rgba(126, 181, 229, 0.28));
 }
 
 .hr-subtitle {
@@ -174,4 +182,3 @@ body {
 .hr-accent {
   color: #cff147;
 }
-
