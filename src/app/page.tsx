@@ -21,12 +21,12 @@ export default function Home() {
       <div className="hr-content">
         <div className="hr-taglines">
           <p className="hr-subtitle">: wake up and choose violence</p>
-          <p className="hr-subtitle hr-subtitle-secondary">: coming soon to ApeChain</p>
         </div>
 
         <section className="hr-panel hr-image-panel">
+          <p className="hr-image-banner">: coming soon to ApeChain</p>
           <Image
-            src="/images/teaser3.png"
+            src="/images/teaser4.png"
             alt="HumanRobot teaser art"
             width={1200}
             height={1200}
@@ -36,7 +36,7 @@ export default function Home() {
         </section>
 
         <section className="hr-panel hr-mint-panel">
-          <h2 className="hr-panel-title">Mint humanRobot</h2>
+          <h2 className="hr-panel-title hr-panel-accent">Mint humanRobot</h2>
           {mintUrl ? (
             <iframe
               src={mintUrl}

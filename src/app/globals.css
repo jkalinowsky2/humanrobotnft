@@ -14,8 +14,9 @@ body {
   color: #e8edf2;
   font-family: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
   background:
-    radial-gradient(circle at 20% 10%, #213447 0%, transparent 15%),
-    radial-gradient(circle at 85% 0%, #1f1227 0%, transparent 25%),
+    radial-gradient(circle at 20% 10%, #213447 0%, transparent 35%),
+    /* radial-gradient(circle at 85% 0%, #cff147 0%, transparent 5%), */
+    radial-gradient(circle at 85% 0%, #1f1227 0%, transparent 35%),
     linear-gradient(180deg, #05070a 0%, #090c12 45%, #040507 100%);
 }
 
@@ -89,11 +90,6 @@ body::before {
   color: #a6b2be;
 }
 
-.hr-subtitle-secondary {
-  margin-top: 5.4rem;
-  font-size: .75rem;
-}
-
 .hr-panel {
   position: relative;
   z-index: 1;
@@ -109,6 +105,8 @@ body::before {
 .hr-image-panel {
   width: min(620px, 100%);
   padding: 0.75rem;
+  margin-top: 3rem; /* adjust value */
+ 
 }
 
 .hr-image {
@@ -116,6 +114,20 @@ body::before {
   width: 100%;
   height: auto;
   border-radius: 14px;
+}
+
+.hr-image-banner {
+  position: absolute;
+  top: 1.95rem;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c9d5e0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
 .hr-mint-panel {
@@ -177,6 +189,12 @@ body::before {
   text-align: center;
 }
 
+@media (max-width: 1200px) {
+  .hr-taglines {
+    margin-top: -3.25rem;
+  }
+}
+
 @media (max-width: 720px) {
   .hr-page {
     padding-bottom: 1.5rem;
@@ -195,11 +213,16 @@ body::before {
     font-size: 0.94rem;
   }
 
+  .hr-image-banner {
+    top: 0.75rem;
+    font-size: 0.68rem;
+  }
+
   .hr-mint-frame {
     height: 620px;
   }
 }
 
-.hr-accent {
+.hr-panel-accent {
   color: #cff147;
 }
