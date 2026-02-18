@@ -177,13 +177,13 @@ body::before {
   left: -2px;
   text-shadow: 2px 0 #4da8da;
   clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
-  animation: glitchBot 2s 2s infinite;
+  animation: glitchBot 5s 2s infinite;
 }
 
 @keyframes glitchTop {
   /* Long quiet period, then two rapid hits */
   0%,  90%          { transform: translate(0); opacity: 0; }
-  91%               { transform: translate(-3px, -1px); opacity: 1; }
+  91%               { transform: translate(-14px, -1px); opacity: 1; }
   92%               { transform: translate(3px,  1px); opacity: 1; }
   93%               { transform: translate(0); opacity: 0; }
   95%               { transform: translate(-4px, 0); opacity: 1; }
@@ -193,11 +193,13 @@ body::before {
 
 @keyframes glitchBot {
   0%,  90%          { transform: translate(0); opacity: 0; }
-  91%               { transform: translate(3px,  1px); opacity: 1; }
+  91%               { transform: translate(60px,  1px); opacity: 1; }
   92%               { transform: translate(-3px, -1px); opacity: 1; }
   93%               { transform: translate(0); opacity: 0; }
+  /* 94%               { transform: translate(-10px,  1px); opacity: 1; } */
   95%               { transform: translate(4px, 0); opacity: 1; }
-  96%               { transform: translate(0); opacity: 0; }
+  96%               { transform: translate(14px, 0); opacity: 1; }
+  97%               { transform: translate(0); opacity: 0; }
   100%              { transform: translate(0); opacity: 0; }
 }
 
