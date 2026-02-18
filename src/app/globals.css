@@ -15,7 +15,6 @@ body {
   font-family: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
   background:
     radial-gradient(circle at 20% 10%, #213447 0%, transparent 35%),
-    /* radial-gradient(circle at 85% 0%, #cff147 0%, transparent 5%), */
     radial-gradient(circle at 85% 0%, #1f1227 0%, transparent 35%),
     linear-gradient(180deg, #05070a 0%, #090c12 45%, #040507 100%);
 }
@@ -23,12 +22,44 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: -8vw;
+  width: 116vw;
   z-index: 0;
   pointer-events: none;
   opacity: 0.3;
   background: url("/images/bglines.png") top center / 100% auto repeat-y;
+  animation: bglinesDrift 120s ease-in-out infinite alternate;
 }
+
+@keyframes bglinesDrift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-8vw); }
+}
+
+/* ─── Noise overlay ─────────────────────────────────────────────────────── */
+
+.hr-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: noiseDrift 0.15s steps(1) infinite;
+}
+
+@keyframes noiseDrift {
+  0%   { background-position: 0 0; }
+  25%  { background-position: -30px 20px; }
+  50%  { background-position: 15px -10px; }
+  75%  { background-position: -20px -25px; }
+  100% { background-position: 0 0; }
+}
+
+/* ─── Page layout ───────────────────────────────────────────────────────── */
 
 .hr-page {
   position: relative;
@@ -40,21 +71,40 @@ body::before {
   overflow: hidden;
 }
 
+/* ─── Grid — slow drift ─────────────────────────────────────────────────── */
+
 .hr-grid {
   position: absolute;
-  inset: 0;
+  inset: -100px;           /* oversized so drift doesn't show edges */
   background-image:
     linear-gradient(to right, rgba(186, 210, 230, 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(186, 210, 230, 0.07) 1px, transparent 1px);
   background-size: 42px 42px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.65), transparent 80%);
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 80%);
   pointer-events: none;
+  animation: gridDrift 28s linear infinite;
 }
+
+@keyframes gridDrift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-21px, -10px); }
+  50%  { transform: translate(-42px, 0); }
+  75%  { transform: translate(-21px, 10px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ─── Hero ──────────────────────────────────────────────────────────────── */
 
 .hr-hero {
   position: relative;
   z-index: 1;
   width: 100%;
+  animation: heroFadeIn 1.2s ease-out both;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .hr-hero-image {
@@ -63,6 +113,8 @@ body::before {
   height: auto;
   margin: 0;
 }
+
+/* ─── Content ───────────────────────────────────────────────────────────── */
 
 .hr-content {
   position: relative;
@@ -77,9 +129,12 @@ body::before {
   text-align: center;
 }
 
+/* ─── Tagline + glitch ──────────────────────────────────────────────────── */
+
 .hr-taglines {
   margin-top: -6.25rem;
   text-shadow: 0 3px 14px rgba(0, 0, 0, 0.55);
+  animation: contentRise 1s 0.3s ease-out both;
 }
 
 .hr-subtitle {
@@ -89,6 +144,63 @@ body::before {
   line-height: 1.6;
   color: #a6b2be;
 }
+
+/*
+  Glitch effect:
+  - Runs a short burst every ~9s (6s animation, 3s effectively idle via long delay loop)
+  - Two pseudo-elements offset in X with clip-path slices and accent colours
+*/
+
+.hr-glitch {
+  position: relative;
+}
+
+.hr-glitch::before,
+.hr-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: #a6b2be;
+  background: transparent;
+  overflow: hidden;
+}
+
+.hr-glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #cff147;
+  clip-path: polygon(0 20%, 100% 20%, 100% 35%, 0 35%);
+  animation: glitchTop 9s 2s infinite;
+}
+
+.hr-glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 #4da8da;
+  clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
+  animation: glitchBot 9s 2s infinite;
+}
+
+@keyframes glitchTop {
+  /* Long quiet period, then two rapid hits */
+  0%,  90%          { transform: translate(0); opacity: 0; }
+  91%               { transform: translate(-3px, -1px); opacity: 1; }
+  92%               { transform: translate(3px,  1px); opacity: 1; }
+  93%               { transform: translate(0); opacity: 0; }
+  95%               { transform: translate(-4px, 0); opacity: 1; }
+  96%               { transform: translate(0); opacity: 0; }
+  100%              { transform: translate(0); opacity: 0; }
+}
+
+@keyframes glitchBot {
+  0%,  90%          { transform: translate(0); opacity: 0; }
+  91%               { transform: translate(3px,  1px); opacity: 1; }
+  92%               { transform: translate(-3px, -1px); opacity: 1; }
+  93%               { transform: translate(0); opacity: 0; }
+  95%               { transform: translate(4px, 0); opacity: 1; }
+  96%               { transform: translate(0); opacity: 0; }
+  100%              { transform: translate(0); opacity: 0; }
+}
+
+/* ─── Panels ────────────────────────────────────────────────────────────── */
 
 .hr-panel {
   position: relative;
@@ -100,20 +212,64 @@ body::before {
   box-shadow:
     inset 0 1px 0 rgba(227, 242, 255, 0.2),
     0 20px 50px rgba(0, 0, 0, 0.45);
+  animation: contentRise 1s ease-out both;
 }
 
+@keyframes contentRise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Image panel enters slightly later */
 .hr-image-panel {
   width: min(620px, 100%);
   padding: 0.75rem;
-  margin-top: 3rem; /* adjust value */
- 
+  margin-top: 3rem;
+  animation-delay: 0.5s;
 }
+
+/* Mint panel enters after image panel */
+.hr-mint-panel {
+  padding: 1.1rem;
+  animation-delay: 0.75s;
+  /* Slow border glow pulse */
+  animation: contentRise 1s 0.75s ease-out both, borderPulse 5s 2s ease-in-out infinite;
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(227, 242, 255, 0.2),
+      0 20px 50px rgba(0, 0, 0, 0.45);
+    border-color: rgba(187, 214, 237, 0.2);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(207, 241, 71, 0.15),
+      0 20px 50px rgba(0, 0, 0, 0.45),
+      0 0 28px rgba(207, 241, 71, 0.08);
+    border-color: rgba(207, 241, 71, 0.25);
+  }
+}
+
+/* ─── Image panel internals ─────────────────────────────────────────────── */
 
 .hr-image {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 14px;
+  animation: imageBreathe 8s ease-in-out infinite;
+  transition: filter 0.5s ease;
+}
+
+.hr-image:hover {
+  filter: saturate(1.25) brightness(1.05);
+}
+
+@keyframes imageBreathe {
+  0%, 100% { transform: scale(1.00); }
+  50%       { transform: scale(1.018); }
 }
 
 .hr-image-banner {
@@ -130,9 +286,7 @@ body::before {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
-.hr-mint-panel {
-  padding: 1.1rem;
-}
+/* ─── Panel title ───────────────────────────────────────────────────────── */
 
 .hr-panel-title {
   margin: 0 0 0.85rem;
@@ -142,6 +296,8 @@ body::before {
   text-transform: uppercase;
   color: #d8e7f5;
 }
+
+/* ─── Mint frame / placeholder ──────────────────────────────────────────── */
 
 .hr-mint-frame {
   width: 100%;
@@ -155,28 +311,94 @@ body::before {
   display: grid;
   place-items: center;
   min-height: 220px;
-  padding: 1.2rem;
+  padding: 1.4rem 1.2rem;
   border: 1px solid rgba(186, 210, 230, 0.16);
   border-radius: 12px;
   background: rgba(3, 5, 8, 0.75);
-  text-align: center;
+  text-align: left;
   color: #9eacba;
   line-height: 1.55;
+  /* subtle scanline shimmer across the box */
+  position: relative;
+  overflow: hidden;
 }
 
-.hr-mint-status {
-  margin: 0 0 0.35rem;
-  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ecf7ff;
+.hr-mint-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  animation: scanlineScroll 6s linear infinite;
 }
 
-.hr-mint-placeholder code {
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.35rem;
-  background: rgba(200, 220, 236, 0.12);
+@keyframes scanlineScroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 80px; }
 }
+
+/* ─── Terminal lines — staggered reveal ─────────────────────────────────── */
+
+.hr-terminal {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  font-family: "Courier New", "Lucida Console", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+.hr-terminal-line {
+  margin: 0 0 0.45rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  animation: termReveal 0.35s ease-out forwards;
+  /* delay = base 0.8s + (index × 0.55s) */
+  animation-delay: calc(0.8s + var(--i) * 0.55s);
+}
+
+@keyframes termReveal {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hr-terminal-prompt {
+  color: rgba(186, 210, 230, 0.4);
+  margin-right: 0.5em;
+  user-select: none;
+}
+
+.hr-terminal-red {
+  color: #e05c6a;
+}
+
+.hr-terminal-accent {
+  color: #cff147;
+}
+
+/* ─── Blinking cursor ───────────────────────────────────────────────────── */
+
+.hr-cursor {
+  display: inline-block;
+  color: #cff147;
+  /* Wait until the last line has appeared before blinking */
+  opacity: 0;
+  animation:
+    termReveal 0.35s calc(0.8s + 6 * 0.55s) ease-out forwards,
+    blink 0.9s calc(0.8s + 6 * 0.55s + 0.4s) step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Footer ────────────────────────────────────────────────────────────── */
 
 .hr-footer {
   position: relative;
@@ -187,7 +409,16 @@ body::before {
   text-transform: uppercase;
   color: #8594a2;
   text-align: center;
+  animation: contentRise 1s 1s ease-out both;
 }
+
+/* ─── Accent colour ─────────────────────────────────────────────────────── */
+
+.hr-panel-accent {
+  color: #cff147;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
 
 @media (max-width: 1200px) {
   .hr-taglines {
@@ -221,8 +452,4 @@ body::before {
   .hr-mint-frame {
     height: 620px;
   }
-}
-
-.hr-panel-accent {
-  color: #cff147;
 }
