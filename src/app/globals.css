@@ -167,16 +167,17 @@ body::before {
 
 .hr-glitch::before {
   left: 2px;
-  text-shadow: -2px 0 #cff147;
+  /* text-shadow: -2px 0 #cff147; */
+  text-shadow: -2px 0 #ed1e1e;
   clip-path: polygon(0 20%, 100% 20%, 100% 35%, 0 35%);
-  animation: glitchTop 9s 2s infinite;
+  animation: glitchTop 3s 2s infinite;
 }
 
 .hr-glitch::after {
   left: -2px;
   text-shadow: 2px 0 #4da8da;
   clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
-  animation: glitchBot 9s 2s infinite;
+  animation: glitchBot 2s 2s infinite;
 }
 
 @keyframes glitchTop {
@@ -358,7 +359,7 @@ body::before {
   margin: 0 0 0.45rem;
   opacity: 0;
   transform: translateX(-6px);
-  animation: termReveal 0.35s ease-out forwards;
+  animation: termReveal 0.5s ease-out forwards;
   /* delay = base 0.8s + (index × 0.55s) */
   animation-delay: calc(0.8s + var(--i) * 0.55s);
 }
