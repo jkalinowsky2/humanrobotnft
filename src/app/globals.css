@@ -160,6 +160,7 @@ body::before {
   content: attr(data-text);
   position: absolute;
   inset: 0;
+  opacity: 0;
   color: #a6b2be;
   background: transparent;
   overflow: hidden;
@@ -167,8 +168,8 @@ body::before {
 
 .hr-glitch::before {
   left: 2px;
-  /* text-shadow: -2px 0 #cff147; */
-  text-shadow: -2px 0 #ed1e1e;
+  /* text-shadow: -6px 0 #cff147; */
+  text-shadow: -2px 0 #ed1e1ea7;
   clip-path: polygon(0 20%, 100% 20%, 100% 35%, 0 35%);
   animation: glitchTop 3s 2s infinite;
 }
@@ -193,7 +194,7 @@ body::before {
 
 @keyframes glitchBot {
   0%,  90%          { transform: translate(0); opacity: 0; }
-  91%               { transform: translate(60px,  1px); opacity: 1; }
+  91%               { transform: translate(40px,  1px); opacity: 1; }
   92%               { transform: translate(-3px, -1px); opacity: 1; }
   93%               { transform: translate(0); opacity: 0; }
   /* 94%               { transform: translate(-10px,  1px); opacity: 1; } */
