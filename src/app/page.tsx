@@ -3,6 +3,7 @@
 //NEW CODE///
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Analytics } from "@vercel/analytics/next"
 
 
 const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
