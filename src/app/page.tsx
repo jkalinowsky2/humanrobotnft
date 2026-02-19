@@ -6,10 +6,20 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 
 const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
+const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","REDACTED"];
+const botlistStepSeconds = .05;
+const terminalBaseDelaySeconds = 0.2;
+const terminalLineStepSeconds = 0.9;
+const botlistLineIndex = 2;
 
 export default function Home() {
   const mintPanelRef = useRef<HTMLElement | null>(null);
   const [mintVisible, setMintVisible] = useState(false);
+  const [botlistIndex, setBotlistIndex] = useState(0);
+  const delay2Seconds = Math.max(
+    0,
+    botlistItems.length * botlistStepSeconds - terminalLineStepSeconds
+  );
 
   useEffect(() => {
     if (mintUrl) return;
@@ -32,6 +42,33 @@ export default function Home() {
     observer.observe(panel);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (mintUrl || !mintVisible) return;
+    setBotlistIndex(0);
+
+    const startDelayMs =
+      (terminalBaseDelaySeconds + botlistLineIndex * terminalLineStepSeconds) *
+      1000;
+    let current = 0;
+    let cycle = 0;
+
+    const startTimer = window.setTimeout(() => {
+      cycle = window.setInterval(() => {
+        current += 1;
+        if (current >= botlistItems.length) {
+          window.clearInterval(cycle);
+          return;
+        }
+        setBotlistIndex(current);
+      }, botlistStepSeconds * 1000);
+    }, startDelayMs);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearInterval(cycle);
+    };
+  }, [mintVisible, mintUrl]);
 
   return (
     <main className="hr-page">
@@ -71,6 +108,7 @@ export default function Home() {
         <section
           ref={mintPanelRef}
           className={`hr-panel hr-mint-panel${mintVisible ? " is-visible" : ""}`}
+          style={{ "--post-botlist-delay": `${delay2Seconds}s` } as CSSProperties}
         >
           <h2 className="hr-panel-title hr-panel-accent">Mint humanRobot</h2>
           {mintUrl ? (
@@ -89,20 +127,18 @@ export default function Home() {
                 <p className="hr-terminal-line" style={{ "--i": 1 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span> AUTHENTICATING...
                 </p>
-                <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 2 } as CSSProperties}>
-                  <span className="hr-terminal-prompt">&gt;</span>{" "}
-                  <span className="hr-terminal-red">ACCESS DENIED: Transmission locked</span>
+                <p className="hr-terminal-line" style={{ "--i": 2 } as CSSProperties}>
+                  <span className="hr-terminal-prompt">&gt;</span> BOTLIST:
+                  <span className="hr-whitelist-item"> {botlistItems[botlistIndex]}</span>
                 </p>
                 <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 3 } as CSSProperties}>
-                  <span className="hr-terminal-prompt">&gt;</span> ...
+                  <span className="hr-terminal-prompt">&gt;</span>{" "}
+                  <span className="hr-terminal-red">ACCESS DENIED: TRANSMISSION BLOCKED...</span>
                 </p>
                 <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 4 } as CSSProperties}>
-                  <span className="hr-terminal-prompt">&gt;</span> REBOOT REQUIRED
+                  <span className="hr-terminal-prompt">&gt;</span> REBOOT REQUIRED...
                 </p>
-                <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 5 } as CSSProperties}>
-                  <span className="hr-terminal-prompt">&gt;</span> ...
-                </p>
-                <p className="hr-terminal-line hr-terminal-line-delay-2 hr-terminal-line-final hr-terminal-last" style={{ "--i": 6 } as CSSProperties}>
+                <p className="hr-terminal-line hr-terminal-line-delay-2 hr-terminal-line-final hr-terminal-last" style={{ "--i": 5 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span>{" "}
                   <span className="hr-terminal-accent">TERMINATING</span>
                   <span className="hr-cursor">_</span>

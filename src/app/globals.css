@@ -377,7 +377,7 @@ body::before {
 }
 
 .hr-terminal-line-delay-2 {
-  --delay-2: 1.8s;
+  --delay-2: var(--post-botlist-delay, 7.1s);
 }
 
 .hr-terminal-line-final {
@@ -412,6 +412,13 @@ body::before {
   color: #cff147;
 }
 
+.hr-whitelist-item {
+  display: inline-block;
+  min-width: 12ch;
+  margin-left: 0.35rem;
+  color: #cff147;
+}
+
 /* ─── Blinking cursor ───────────────────────────────────────────────────── */
 
 .hr-cursor {
@@ -423,8 +430,19 @@ body::before {
 
 .hr-mint-panel.is-visible .hr-cursor {
   animation:
-    termReveal 0.35s calc(0.2s + 6 * 0.9s + 1.8s + 0.7s) ease-out forwards,
-    blink 0.9s calc(0.2s + 6 * 0.9s + 1.8s + 0.7s + 0.4s) step-end infinite;
+    termReveal 0.35s calc(
+      var(--delay-1, 0.2s)
+      + 5 * var(--line-step, 0.9s)
+      + var(--post-botlist-delay, 7.1s)
+      + var(--delay-3, 0.7s)
+    ) ease-out forwards,
+    blink 0.9s calc(
+      var(--delay-1, 0.2s)
+      + 5 * var(--line-step, 0.9s)
+      + var(--post-botlist-delay, 7.1s)
+      + var(--delay-3, 0.7s)
+      + 0.4s
+    ) step-end infinite;
 }
 
 @keyframes blink {
