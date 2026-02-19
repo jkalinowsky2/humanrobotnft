@@ -80,7 +80,7 @@ body::before {
     linear-gradient(to right, rgba(186, 210, 230, 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(186, 210, 230, 0.07) 1px, transparent 1px);
   background-size: 42px 42px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 80%);
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.0), transparent 80%);
   pointer-events: none;
   animation: gridDrift 28s linear infinite;
 }
@@ -339,6 +339,10 @@ body::before {
     rgba(0, 0, 0, 0.12) 4px
   );
   pointer-events: none;
+  animation: none;
+}
+
+.hr-mint-panel.is-visible .hr-mint-placeholder::after {
   animation: scanlineScroll 6s linear infinite;
 }
 
@@ -362,10 +366,33 @@ body::before {
   margin: 0 0 0.45rem;
   opacity: 0;
   transform: translateX(-6px);
-  animation: termReveal 0.5s ease-out forwards;
-  /* delay = base 0.8s + (index × 0.55s) */
-  animation-delay: calc(0.8s + var(--i) * 0.55s);
+  animation: none;
 }
+
+.hr-mint-panel.is-visible .hr-terminal-line {
+  animation: termReveal 0.5s ease-out forwards;
+  animation-delay: calc(
+    var(--delay-1, 0.2s) + var(--i) * var(--line-step, 0.9s) + var(--delay-2, 0s)
+  );
+}
+
+.hr-terminal-line-delay-2 {
+  --delay-2: 1.8s;
+}
+
+.hr-terminal-line-final {
+  --delay-3: 0.7s;
+}
+
+.hr-mint-panel.is-visible .hr-terminal-line.hr-terminal-line-final {
+  animation-delay: calc(
+    var(--delay-1, 0.2s)
+    + var(--i) * var(--line-step, 0.9s)
+    + var(--delay-2, 0s)
+    + var(--delay-3, 0s)
+  );
+}
+
 
 @keyframes termReveal {
   to { opacity: 1; transform: translateX(0); }
@@ -390,11 +417,14 @@ body::before {
 .hr-cursor {
   display: inline-block;
   color: #cff147;
-  /* Wait until the last line has appeared before blinking */
   opacity: 0;
+  animation: none;
+}
+
+.hr-mint-panel.is-visible .hr-cursor {
   animation:
-    termReveal 0.35s calc(0.8s + 6 * 0.55s) ease-out forwards,
-    blink 0.9s calc(0.8s + 6 * 0.55s + 0.4s) step-end infinite;
+    termReveal 0.35s calc(0.2s + 6 * 0.9s + 1.8s + 0.7s) ease-out forwards,
+    blink 0.9s calc(0.2s + 6 * 0.9s + 1.8s + 0.7s + 0.4s) step-end infinite;
 }
 
 @keyframes blink {
