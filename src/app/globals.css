@@ -234,6 +234,7 @@ body::before {
 
 /* Mint panel enters after image panel */
 .hr-mint-panel {
+  width: min(620px, 100%);
   padding: 1.1rem;
   animation-delay: 0.75s;
   /* Slow border glow pulse */
