@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 
 const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
-const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","REDACTED"];
+const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","ACCESS DENIED"];
 const botlistStepSeconds = .05;
 const terminalBaseDelaySeconds = 0.2;
 const terminalLineStepSeconds = 0.9;
@@ -131,10 +131,10 @@ export default function Home() {
                   <span className="hr-terminal-prompt">&gt;</span> BOTLIST:
                   <span className="hr-whitelist-item"> {botlistItems[botlistIndex]}</span>
                 </p>
-                <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 3 } as CSSProperties}>
+                {/* <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 3 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span>{" "}
-                  <span className="hr-terminal-red">ACCESS DENIED: TRANSMISSION BLOCKED...</span>
-                </p>
+                  <span className="hr-terminal-red">BOTLIST ACCESS: DENIED</span>
+                </p> */}
                 <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 4 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span> REBOOT REQUIRED...
                 </p>
