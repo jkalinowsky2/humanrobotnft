@@ -241,6 +241,11 @@ body::before {
   animation: contentRise 1s 0.75s ease-out both, borderPulse 5s 2s ease-in-out infinite;
 }
 
+.hr-botlist-panel {
+  width: min(620px, 100%);
+  padding: 1.1rem;
+}
+
 @keyframes borderPulse {
   0%, 100% {
     box-shadow:
@@ -300,6 +305,53 @@ body::before {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #d8e7f5;
+}
+
+.hr-botlist-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hr-botlist-item {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0.45rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  color: #9eacba;
+  font-family: "Courier New", "Lucida Console", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  line-height: 1.55;
+  text-transform: uppercase;
+  justify-content: flex-start;
+}
+
+.hr-botlist-frame {
+  min-height: 220px;
+  padding: 1.4rem 1.2rem;
+  border: 1px solid rgba(186, 210, 230, 0.16);
+  border-radius: 12px;
+  background: rgba(3, 5, 8, 0.75);
+}
+
+.hr-botlist-panel.is-visible .hr-botlist-item {
+  animation: termReveal 0.5s ease-out forwards;
+  animation-delay: calc(var(--delay-1, 0.2s) + var(--i) * var(--line-step, 0.9s));
+}
+
+.hr-botlist-prompt {
+  color: rgba(186, 210, 230, 0.4);
+  margin-right: 0.5em;
+  user-select: none;
+}
+
+.hr-botlist-name {
+  text-align: left;
 }
 
 /* ─── Mint frame / placeholder ──────────────────────────────────────────── */
@@ -504,5 +556,9 @@ body::before {
 
   .hr-mint-frame {
     height: 620px;
+  }
+
+  .hr-botlist-list {
+    gap: 0.45rem;
   }
 }

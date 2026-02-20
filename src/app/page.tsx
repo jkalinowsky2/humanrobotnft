@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 
 const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
+const whitelistedProjects = ["moonbirds", "nightglyders", "trenchers", "@humanrobotnft to request access"];
 const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS",
@@ -18,7 +19,9 @@ const botlistLineIndex = 2;
 
 export default function Home() {
   const mintPanelRef = useRef<HTMLElement | null>(null);
+  const botlistPanelRef = useRef<HTMLElement | null>(null);
   const [mintVisible, setMintVisible] = useState(false);
+  const [botlistPanelVisible, setBotlistPanelVisible] = useState(false);
   const [botlistIndex, setBotlistIndex] = useState(0);
   const delay2Seconds = Math.max(
     0,
@@ -34,6 +37,27 @@ export default function Home() {
       (entries) => {
         if (entries[0]?.isIntersecting) {
           setMintVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.35,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const panel = botlistPanelRef.current;
+    if (!panel) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setBotlistPanelVisible(true);
           observer.disconnect();
         }
       },
@@ -150,6 +174,27 @@ export default function Home() {
               </div>
             </div>
           )}
+        </section>
+
+        <section
+          ref={botlistPanelRef}
+          className={`hr-panel hr-botlist-panel${botlistPanelVisible ? " is-visible" : ""}`}
+        >
+          <h3 className="hr-panel-title hr-panel-accent">BOTLIST STATUS: ACTIVE</h3>
+          <div className="hr-botlist-frame">
+            <ul className="hr-botlist-list">
+              {whitelistedProjects.map((project, index) => (
+                <li
+                  key={project}
+                  className="hr-botlist-item"
+                  style={{ "--i": index } as CSSProperties}
+                >
+                  <span className="hr-botlist-prompt">&gt;</span>
+                  <span className="hr-botlist-name">{project}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         <footer className="hr-footer">
