@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 
 const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
-const whitelistedProjects = ["moonbirds", "nightglyders", "trenchers", "@humanrobotnft to request access"];
+const whitelistedProjects = ["moonbirds", "nightglyders", "trenchers", "the coffee collection", "@humanrobotnft to request access"];
 const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS",
