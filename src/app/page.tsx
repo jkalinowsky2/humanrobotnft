@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 
 const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
-const whitelistedProjects = ["moonbirds", "nightglyders", "trenchers", "the coffee collection", "@humanrobotnft to request access"];
+const whitelistedProjects = ["moonbirds", "the coffee collection", "@humanrobotnft to request access"];
 const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS",
@@ -180,7 +180,7 @@ export default function Home() {
           ref={botlistPanelRef}
           className={`hr-panel hr-botlist-panel${botlistPanelVisible ? " is-visible" : ""}`}
         >
-          <h3 className="hr-panel-title hr-panel-accent">BOTLIST STATUS: ACTIVE</h3>
+          <h3 className="hr-panel-title hr-panel-accent">BOTLIST STATUS: CONFIRMED</h3>
           <div className="hr-botlist-frame">
             <ul className="hr-botlist-list">
               {whitelistedProjects.map((project, index) => (
