@@ -611,7 +611,20 @@ body::before {
     height: 620px;
   }
 
+  .hr-image-terminal-line,
+  .hr-botlist-item {
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+    margin-bottom: 0.3rem;
+  }
+
+  .hr-image-terminal-line:last-child,
+  .hr-botlist-item:last-child {
+    margin-bottom: 0;
+  }
+
   .hr-botlist-list {
-    gap: 0.45rem;
+    gap: 0;
   }
 }
