@@ -5,41 +5,48 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 
+const mintUrl = process.env.NEXT_PUBLIC_NFTS2ME_MINT_URL;
 const whitelistedProjects = ["moonbirds", "the coffee collection", "@humanrobotnft to request access"];
 const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS", "BLEVER", "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS","BLEVER",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS", "BLEVER","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS","BLEVER",
                     "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "MINTOTAURS","BLEVER","MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS","GOBS", "MINTOTAURS","BLEVER",
+                  
                      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" , "ACCESS DENIED"];
+const botlistStepSeconds = .07;
 const terminalBaseDelaySeconds = 0.2;
 const terminalLineStepSeconds = 0.9;
-const botlistStepSeconds = 0.07;
+const botlistLineIndex = 2;
 
 export default function Home() {
-  const imageTerminalRef = useRef<HTMLDivElement | null>(null);
+  const mintPanelRef = useRef<HTMLElement | null>(null);
   const botlistPanelRef = useRef<HTMLElement | null>(null);
-  const [imageTerminalVisible, setImageTerminalVisible] = useState(false);
-  const [visibleLineCount, setVisibleLineCount] = useState(0);
-  const [botlistIndex, setBotlistIndex] = useState(0);
+  const [mintVisible, setMintVisible] = useState(false);
   const [botlistPanelVisible, setBotlistPanelVisible] = useState(false);
+  const [botlistIndex, setBotlistIndex] = useState(0);
+  const delay2Seconds = Math.max(
+    0,
+    botlistItems.length * botlistStepSeconds - terminalLineStepSeconds
+  );
 
   useEffect(() => {
-    const terminal = imageTerminalRef.current;
-    if (!terminal) return;
+    if (mintUrl) return;
+    const panel = mintPanelRef.current;
+    if (!panel) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          setImageTerminalVisible(true);
+          setMintVisible(true);
           observer.disconnect();
         }
       },
       {
-        threshold: 0.65,
-        rootMargin: "0px",
+        threshold: 0.35,
+        rootMargin: "0px 0px -10% 0px",
       }
     );
 
-    observer.observe(terminal);
+    observer.observe(panel);
     return () => observer.disconnect();
   }, []);
 
@@ -65,38 +72,31 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!imageTerminalVisible) return;
-    setVisibleLineCount(0);
+    if (mintUrl || !mintVisible) return;
     setBotlistIndex(0);
 
-    const timers: number[] = [];
-    const base = terminalBaseDelaySeconds * 1000;
-    const step = terminalLineStepSeconds * 1000;
-    const botStep = botlistStepSeconds * 1000;
+    const startDelayMs =
+      (terminalBaseDelaySeconds + botlistLineIndex * terminalLineStepSeconds) *
+      1000;
+    let current = 0;
+    let cycle = 0;
 
-    timers.push(window.setTimeout(() => setVisibleLineCount(1), base));
-    timers.push(window.setTimeout(() => setVisibleLineCount(2), base + step));
-    timers.push(window.setTimeout(() => setVisibleLineCount(3), base + step * 2));
-
-    let idx = 0;
-    const botlistStart = window.setTimeout(() => {
-      const cycle = window.setInterval(() => {
-        idx += 1;
-        if (idx >= botlistItems.length) {
+    const startTimer = window.setTimeout(() => {
+      cycle = window.setInterval(() => {
+        current += 1;
+        if (current >= botlistItems.length) {
           window.clearInterval(cycle);
-          setVisibleLineCount(4);
-          timers.push(window.setTimeout(() => setVisibleLineCount(5), step));
           return;
         }
-        setBotlistIndex(idx);
-      }, botStep);
-      timers.push(cycle);
-    }, base + step * 2);
+        setBotlistIndex(current);
+      }, botlistStepSeconds * 1000);
+    }, startDelayMs);
 
-    timers.push(botlistStart);
-
-    return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [imageTerminalVisible]);
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearInterval(cycle);
+    };
+  }, [mintVisible, mintUrl]);
 
   return (
     <main className="hr-page">
@@ -122,7 +122,7 @@ export default function Home() {
         </div>
 
         <section className="hr-panel hr-image-panel">
-          {/* <p className="hr-image-banner">: coming soon to ApeChain</p> */}
+          <p className="hr-image-banner">: coming soon to ApeChain</p>
           <Image
             src="/images/teaser4.png"
             alt="HumanRobot teaser art"
@@ -131,42 +131,49 @@ export default function Home() {
             className="hr-image"
             priority
           />
-          <div
-            ref={imageTerminalRef}
-            className={`hr-image-terminal${imageTerminalVisible ? " is-visible" : ""}`}
-          >
-            <div className="hr-image-terminal-lines">
-              {visibleLineCount >= 1 ? (
-                <p className="hr-image-terminal-line">
+        </section>
+
+        <section
+          ref={mintPanelRef}
+          className={`hr-panel hr-mint-panel${mintVisible ? " is-visible" : ""}`}
+          style={{ "--post-botlist-delay": `${delay2Seconds}s` } as CSSProperties}
+        >
+          <h2 className="hr-panel-title hr-panel-accent">Mint humanRobot</h2>
+          {mintUrl ? (
+            <iframe
+              src={mintUrl}
+              title="HumanRobot mint"
+              className="hr-mint-frame"
+              allow="clipboard-write; encrypted-media; fullscreen; payment"
+            />
+          ) : (
+            <div className="hr-mint-placeholder">
+              <div className="hr-terminal">
+                <p className="hr-terminal-line" style={{ "--i": 0 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span> INITIALIZING CONNECTION
                 </p>
-              ) : null}
-              {visibleLineCount >= 2 ? (
-                <p className="hr-image-terminal-line">
+                <p className="hr-terminal-line" style={{ "--i": 1 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span> AUTHENTICATING...
                 </p>
-              ) : null}
-              {visibleLineCount >= 3 ? (
-                <p className="hr-image-terminal-line">
-                  <span className="hr-terminal-prompt">&gt;</span> BOTLIST:{" "}
-                  <span className="hr-whitelist-item">{botlistItems[botlistIndex]}</span>
+                <p className="hr-terminal-line" style={{ "--i": 2 } as CSSProperties}>
+                  <span className="hr-terminal-prompt">&gt;</span> BOTLIST:
+                  <span className="hr-whitelist-item"> {botlistItems[botlistIndex]}</span>
                 </p>
-              ) : null}
-              {visibleLineCount >= 4 ? (
-                <p className="hr-image-terminal-line">
+                {/* <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 3 } as CSSProperties}>
+                  <span className="hr-terminal-prompt">&gt;</span>{" "}
+                  <span className="hr-terminal-red">BOTLIST ACCESS: DENIED</span>
+                </p> */}
+                <p className="hr-terminal-line hr-terminal-line-delay-2" style={{ "--i": 4 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span> REBOOT REQUIRED...
                 </p>
-              ) : null}
-              {visibleLineCount >= 5 ? (
-                <p className="hr-image-terminal-line">
+                <p className="hr-terminal-line hr-terminal-line-delay-2 hr-terminal-line-final hr-terminal-last" style={{ "--i": 5 } as CSSProperties}>
                   <span className="hr-terminal-prompt">&gt;</span>{" "}
-                  <span className="hr-terminal-accent">
-                    TERMINATING<span className="hr-image-cursor">_</span>
-                  </span>
+                  <span className="hr-terminal-accent">TERMINATING</span>
+                  <span className="hr-cursor">_</span>
                 </p>
-              ) : null}
+              </div>
             </div>
-          </div>
+          )}
         </section>
 
         <section
