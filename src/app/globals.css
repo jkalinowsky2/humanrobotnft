@@ -284,7 +284,7 @@ body::before {
 
 .hr-image-terminal {
   position: absolute;
-  left: 2.3rem;
+  left: 1.7rem;
   right: 2.3rem;
   bottom: 1.1rem;
   padding: 0;
@@ -386,7 +386,7 @@ body::before {
   flex-direction: column;
   justify-content: flex-start;
   min-height: 220px;
-  padding: 1.4rem 1.2rem;
+  padding: 1.0rem .7rem;
   border: 1px solid rgba(186, 210, 230, 0.16);
   border-radius: 12px;
   background: rgba(3, 5, 8, 0.75);
