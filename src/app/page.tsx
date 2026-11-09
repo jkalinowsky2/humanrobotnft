@@ -109,9 +109,6 @@ export default function Home() {
         <Link href="/" className="hr-site-nav-link is-active">
           Home
         </Link>
-        <Link href="/battle-arena" className="hr-site-nav-link">
-          Battle Arena
-        </Link>
       </nav>
 
       <header className="hr-hero">
@@ -130,17 +127,12 @@ export default function Home() {
           <p className="hr-subtitle hr-glitch" data-text=": wake up and choose violence">
             : wake up and choose violence
           </p>
-          <div className="hr-hero-actions">
-            <Link href="/battle-arena" className="hr-cta-link">
-              Enter Battle Arena
-            </Link>
-          </div>
         </div>
 
         <section className="hr-panel hr-image-panel">
           {/* <p className="hr-image-banner">: coming soon to ApeChain</p> */}
           <Image
-            src="/images/teaser4.png"
+            src="/images/teaser5.png"
             alt="HumanRobot teaser art"
             width={1200}
             height={1200}
@@ -206,17 +198,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="hr-panel hr-mint-panel is-visible">
-          <h3 className="hr-panel-title hr-panel-accent">TEST MINT: SEQUENCE INITIATED</h3>
-          <div className="hr-mint-frame-shell">
-            <iframe
-              id="iframe-widget"
-              src="https://0xa9be943a7f61c98b3551b3d24ebf99f4af083a3c_33139.nfts2.me/?widget=classic&bgColor=05080d&hideBanner=true"
-              className="hr-mint-frame"
-              title="HumanRobot Mint Widget"
-            />
-          </div>
-        </section>
+        <a
+          href="https://opensea.io"
+          className="hr-cta-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on OpenSea
+        </a>
+        <p className="hr-mint-note">mint site coming soon</p>
 
         <footer className="hr-footer">
           &copy; {new Date().getFullYear()} HumanRobot. All signals reserved.

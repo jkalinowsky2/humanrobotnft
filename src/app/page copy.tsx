@@ -126,7 +126,7 @@ export default function Home() {
         </div>
 
         <section className="hr-panel hr-image-panel">
-          <p className="hr-image-banner">: coming soon to ApeChain</p>
+          <p className="hr-image-banner">: coming soon to Ethereum</p>
           <Image
             src="/images/teaser4.png"
             alt="HumanRobot teaser art"
@@ -238,7 +238,7 @@ export default function Home() {
 //         </div>
 
 //         <section className="hr-panel hr-image-panel">
-//           <p className="hr-image-banner">: coming soon to ApeChain</p>
+//           <p className="hr-image-banner">: coming soon to </p>
 //           <Image
 //             src="/images/teaser4.png"
 //             alt="HumanRobot teaser art"

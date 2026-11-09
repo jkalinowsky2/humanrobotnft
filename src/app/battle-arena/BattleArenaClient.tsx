@@ -77,9 +77,6 @@ export default function BattleArenaClient({ arenaFighters, mintedRoster }: Props
         <Link href="/" className="hr-site-nav-link">
           Home
         </Link>
-        <Link href="/battle-arena" className="hr-site-nav-link is-active">
-          Battle Arena
-        </Link>
       </nav>
 
       <div className="hr-content hr-arena-content">
