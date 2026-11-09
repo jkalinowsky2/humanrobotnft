@@ -1,0 +1,24 @@
+{
+  "battle_stats_hash": "e4203f82bc1f8093578b16fdcb77da1add1c1edc70926fd8b804e521c974d46a",
+  "battle_stats_algo_version": "v1",
+  "battle_seed_id": "E4203F82BC",
+  "card_type": "Base",
+  "traits_used": {
+    "background": "Blue",
+    "weapon": "Violent Blaster",
+    "body": "White",
+    "headwear": "Starman Red",
+    "eyes": "Dead Red",
+    "mouth": "Grill",
+    "chest": "Yellow MP3",
+    "arms": "Black",
+    "ears": "Black"
+  },
+  "stats": {
+    "attack": 2099,
+    "defense": 1677,
+    "magic": 1846,
+    "speed": 1618,
+    "special": 1829
+  }
+}

@@ -33,6 +33,11 @@ body::before {
   animation: bglinesDrift 120s ease-in-out infinite alternate;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 @keyframes bglinesDrift {
   from { transform: translateX(0); }
   to { transform: translateX(-8vw); }
@@ -69,6 +74,41 @@ body::before {
   min-height: 100vh;
   padding-bottom: 2rem;
   overflow: hidden;
+}
+
+.hr-site-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 0.75rem;
+  width: min(960px, calc(100% - 2rem));
+  justify-content: flex-end;
+  padding-top: 1rem;
+}
+
+.hr-site-nav-link {
+  border: 1px solid rgba(186, 210, 230, 0.18);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  background: rgba(7, 11, 17, 0.7);
+  color: #9eacba;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.hr-site-nav-link:hover,
+.hr-site-nav-link:focus-visible,
+.hr-site-nav-link.is-active {
+  border-color: rgba(207, 241, 71, 0.42);
+  background: rgba(14, 21, 12, 0.88);
+  color: #cff147;
+  transform: translateY(-1px);
 }
 
 /* ─── Grid — slow drift ─────────────────────────────────────────────────── */
@@ -153,6 +193,46 @@ body::before {
 
 .hr-glitch {
   position: relative;
+}
+
+.hr-hero-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.15rem;
+}
+
+.hr-cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid rgba(207, 241, 71, 0.35);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(33, 45, 14, 0.95), rgba(12, 18, 9, 0.95));
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+  color: #cff147;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.hr-cta-link:hover,
+.hr-cta-link:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.34);
+  border-color: rgba(207, 241, 71, 0.52);
+}
+
+.hr-cta-link-secondary {
+  background: rgba(7, 11, 17, 0.76);
+  color: #d8e7f5;
+  border-color: rgba(186, 210, 230, 0.24);
 }
 
 .hr-glitch::before,
@@ -409,12 +489,20 @@ body::before {
 
 /* ─── Mint frame / placeholder ──────────────────────────────────────────── */
 
-.hr-mint-frame {
-  width: 100%;
-  height: 700px;
-  border: 0;
+.hr-mint-frame-shell {
+  padding: 0.7rem;
+  border: 1px solid rgba(186, 210, 230, 0.16);
   border-radius: 12px;
-  background: #020304;
+  background: rgba(3, 5, 8, 0.75);
+}
+
+.hr-mint-frame {
+  display: block;
+  width: 100%;
+  height: 515px;
+  border: 0;
+  border-radius: 8px;
+  background: #05090d;
 }
 
 .hr-mint-placeholder {
@@ -576,6 +664,661 @@ body::before {
   color: #cff147;
 }
 
+.hr-arena-page {
+  padding-top: 0.5rem;
+}
+
+.hr-arena-content {
+  max-width: 1080px;
+  align-items: stretch;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.hr-arena-hero-panel,
+.hr-card-viewer-panel,
+.hr-arena-roster-panel,
+.hr-arena-overview-panel,
+.hr-arena-cards-panel {
+  width: 100%;
+  padding: 1.35rem;
+}
+
+.hr-arena-kicker {
+  margin: 0 0 0.65rem;
+  color: #8fa1b2;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hr-arena-title {
+  margin: 0;
+  max-width: 12ch;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: clamp(2.2rem, 4vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.hr-arena-copy {
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  color: #9eacba;
+  line-height: 1.65;
+}
+
+.hr-arena-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 1.25rem;
+}
+
+.hr-card-viewer-panel {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(420px, 1.18fr);
+  gap: 2rem;
+  align-items: start;
+  padding: 1.6rem 1.75rem;
+}
+
+.hr-card-viewer-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 2.7rem;
+}
+
+.hr-card-form {
+  width: 100%;
+  margin-top: 1.2rem;
+}
+
+.hr-card-form-label {
+  display: inline-block;
+  margin-bottom: 0.55rem;
+  color: #8fa1b2;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hr-card-form-row {
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.hr-card-form-input {
+  flex: 1 1 auto;
+  min-height: 50px;
+  padding: 0 1rem;
+  border: 1px solid rgba(186, 210, 230, 0.18);
+  border-radius: 14px;
+  background: rgba(3, 5, 8, 0.9);
+  color: #eef4fa;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hr-card-form-input:focus {
+  border-color: rgba(207, 241, 71, 0.42);
+  box-shadow: 0 0 0 3px rgba(207, 241, 71, 0.08);
+}
+
+.hr-card-form-button {
+  min-width: 148px;
+  cursor: pointer;
+}
+
+.hr-card-meta {
+  width: 100%;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(186, 210, 230, 0.12);
+}
+
+.hr-card-meta-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(186, 210, 230, 0.08);
+}
+
+.hr-card-meta-row dt {
+  color: #7f91a3;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hr-card-meta-row dd {
+  margin: 0;
+  color: #eef4fa;
+  text-align: right;
+}
+
+.hr-viewer-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.7rem;
+  width: 100%;
+  margin-top: 1.2rem;
+}
+
+.hr-viewer-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 0.8rem;
+  border: 1px solid rgba(186, 210, 230, 0.14);
+  border-radius: 12px;
+  background: rgba(3, 5, 8, 0.76);
+}
+
+.hr-viewer-stat-label {
+  color: #7f91a3;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hr-viewer-stat-value {
+  color: #eef4fa;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.hr-card-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 860px;
+  padding: 2.5rem 2rem 3.5rem;
+  perspective: 1800px;
+  perspective-origin: 50% 35%;
+  overflow: visible;
+  --hr-card-motion-duration: 3s;
+  --hr-card-holo-duration: 4.5s;
+  --hr-card-motion-ease: cubic-bezier(0.45, 0.05, 0.22, 0.98);
+}
+
+.hr-card-stage-glow {
+  position: absolute;
+  inset: auto 12% 10% 12%;
+  height: 150px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(77, 168, 218, 0.28), transparent 58%),
+    radial-gradient(circle, rgba(207, 241, 71, 0.18), transparent 65%),
+    radial-gradient(circle, rgba(255, 122, 173, 0.14), transparent 70%);
+  filter: blur(22px);
+  transform: translateZ(0);
+  animation: stagePulse var(--hr-card-motion-duration) var(--hr-card-motion-ease) infinite alternate;
+}
+
+.hr-float-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hr-float-card-motion {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transform-style: preserve-3d;
+  animation: arenaCardFloat var(--hr-card-motion-duration) var(--hr-card-motion-ease) infinite alternate;
+}
+
+.hr-float-card-shell {
+  position: relative;
+  width: min(100%, 470px);
+  border-radius: 28px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform:
+    rotateX(15deg)
+    rotateY(-5deg)
+    rotateZ(0deg)
+    translateZ(10px);
+  box-shadow:
+    0 65px 90px rgba(0, 0, 0, 0.46),
+    0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hr-float-card-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 28px;
+}
+
+.hr-float-card-foil,
+.hr-float-card-scan,
+.hr-float-card-edge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 28px;
+}
+
+.hr-float-card-edge::before {
+  content: none;
+}
+
+.hr-float-card-shell-base .hr-float-card-foil,
+.hr-float-card-shell-base .hr-float-card-scan {
+  display: none;
+}
+
+.hr-float-card-shell-base .hr-float-card-edge {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 0 0 1px rgba(186, 210, 230, 0.12),
+    inset 0 0 18px rgba(77, 168, 218, 0.08);
+}
+
+.hr-float-card-shell-base .hr-float-card-edge::before {
+  content: none;
+}
+
+.hr-float-card-foil {
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.08), transparent 38%),
+    linear-gradient(
+      115deg,
+      rgba(77, 168, 218, 0.24) 0%,
+      rgba(122, 235, 255, 0.2) 22%,
+      rgba(207, 241, 71, 0.14) 44%,
+      rgba(255, 122, 173, 0.18) 66%,
+      rgba(173, 125, 255, 0.18) 82%,
+      transparent 100%
+    ),
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.16), transparent 28%),
+    repeating-linear-gradient(
+      110deg,
+      rgba(255, 255, 255, 0.02) 0 24px,
+      rgba(77, 168, 218, 0.07) 24px 48px,
+      rgba(207, 241, 71, 0.05) 48px 72px,
+      rgba(255, 122, 173, 0.07) 72px 96px
+    );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  background-size: 165% 165%, 190% 190%, 100% 100%, 320% 320%;
+  animation: holoShift var(--hr-card-holo-duration) var(--hr-card-motion-ease) infinite alternate;
+}
+
+.hr-float-card-shell-foil .hr-float-card-foil {
+  opacity: 0.72;
+}
+
+.hr-float-card-shell-foil .hr-float-card-scan {
+  display: none;
+}
+
+.hr-float-card-shell-holographic .hr-float-card-foil {
+  opacity: 0.97;
+  filter: saturate(1.15) brightness(1.04);
+}
+
+.hr-float-card-shell-holographic .hr-float-card-scan {
+  display: block;
+}
+
+.hr-float-card-shell-edition .hr-float-card-foil {
+  opacity: 0.58;
+  filter: saturate(0.85) brightness(1.02);
+}
+
+.hr-float-card-shell-edition .hr-float-card-scan {
+  opacity: 0.12;
+}
+
+.hr-float-card-shell-edition .hr-float-card-edge {
+  border-color: rgba(255, 224, 167, 0.26);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 224, 167, 0.12),
+    inset 0 0 20px rgba(255, 193, 77, 0.14);
+}
+
+.hr-float-card-scan {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
+    linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.18) 38%,
+      rgba(255, 255, 255, 0.38) 50%,
+      rgba(255, 255, 255, 0.12) 62%,
+      transparent 100%
+    );
+  opacity: 0.2;
+  mix-blend-mode: soft-light;
+  background-size: 100% 100%, 260% 260%;
+  animation: shimmerSweep var(--hr-card-holo-duration) var(--hr-card-motion-ease) infinite alternate;
+}
+
+.hr-float-card-edge {
+  inset: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(186, 210, 230, 0.12),
+    inset 0 0 28px rgba(77, 168, 218, 0.12);
+  animation: edgePulse var(--hr-card-motion-duration) var(--hr-card-motion-ease) infinite alternate;
+}
+
+.hr-float-card-caption {
+  text-align: center;
+}
+
+.hr-float-card-token,
+.hr-float-card-classname {
+  margin: 0;
+  color: #8fa1b2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hr-float-card-token {
+  font-size: 0.72rem;
+}
+
+.hr-float-card-name {
+  margin: 0.35rem 0;
+  color: #f1f5f9;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hr-float-card-classname {
+  font-size: 0.78rem;
+}
+
+@keyframes arenaCardFloat {
+  0% {
+    transform: rotateY(-8deg);
+  }
+  100% {
+    transform: rotateY(6deg);
+  }
+}
+
+@keyframes holoShift {
+  0% {
+    transform: translate3d(-8%, -3%, 30px) rotateZ(-1deg);
+    background-position: 8% 10%, 14% 18%, 0 0, 6% 8%;
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  100% {
+    transform: translate3d(10%, 3%, 40px) rotateZ(1deg);
+    background-position: 74% 66%, 78% 70%, 0 0, 68% 64%;
+    filter: hue-rotate(18deg) saturate(1.08);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    background-position: 0 0, -80% 0;
+  }
+  100% {
+    background-position: 0 0, 80% 0;
+  }
+}
+
+@keyframes stagePulse {
+  0% {
+    opacity: 0.72;
+    transform: scaleX(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1.04);
+  }
+}
+
+@keyframes edgePulse {
+  0% {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+      inset 0 0 0 1px rgba(186, 210, 230, 0.12),
+      inset 0 0 18px rgba(77, 168, 218, 0.1);
+  }
+  100% {
+    border-color: rgba(230, 244, 255, 0.34);
+    box-shadow:
+      inset 0 0 0 1px rgba(207, 241, 71, 0.16),
+      inset 0 0 34px rgba(207, 241, 71, 0.16);
+  }
+}
+
+
+
+.hr-arena-terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 100%;
+  padding: 0.95rem;
+  border: 1px solid rgba(186, 210, 230, 0.14);
+  border-radius: 12px;
+  background: rgba(3, 5, 8, 0.76);
+}
+
+.hr-arena-terminal-line {
+  margin: 0;
+  color: #9eacba;
+  opacity: 0;
+  transform: translateX(-6px);
+  animation: termReveal 0.45s ease-out forwards;
+  animation-delay: calc(0.15s + var(--i) * 0.1s);
+}
+
+.hr-arena-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.hr-arena-overview-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 122px;
+  padding: 1rem;
+  border: 1px solid rgba(186, 210, 230, 0.16);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(13, 20, 29, 0.94), rgba(7, 10, 15, 0.94)),
+    linear-gradient(135deg, rgba(77, 168, 218, 0.06), rgba(207, 241, 71, 0.03));
+}
+
+.hr-arena-overview-label {
+  color: #7f91a3;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hr-arena-overview-value {
+  color: #edf3f8;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.hr-battle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.hr-battle-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(186, 210, 230, 0.16);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(207, 241, 71, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(10, 15, 21, 0.96), rgba(5, 7, 11, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(227, 242, 255, 0.12),
+    0 18px 40px rgba(0, 0, 0, 0.32);
+}
+
+.hr-battle-card-header,
+.hr-battle-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hr-battle-card-id {
+  margin: 0 0 0.35rem;
+  color: #7f91a3;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hr-battle-card-name {
+  margin: 0;
+  color: #f0f5f9;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hr-battle-card-status {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(207, 241, 71, 0.24);
+  border-radius: 999px;
+  color: #cff147;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hr-battle-card-frame {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 0.9rem;
+}
+
+.hr-battle-card-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  padding: 1rem;
+  border: 1px solid rgba(186, 210, 230, 0.14);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(77, 168, 218, 0.14), rgba(6, 8, 12, 0.12)),
+    radial-gradient(circle at 15% 20%, rgba(207, 241, 71, 0.2), transparent 24%),
+    linear-gradient(135deg, #101821, #05080c);
+  overflow: hidden;
+}
+
+.hr-battle-card-art::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% 18% 48%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(207, 241, 71, 0.55), transparent);
+  transform: rotate(-24deg);
+  box-shadow: 0 0 22px rgba(207, 241, 71, 0.2);
+}
+
+.hr-battle-card-class,
+.hr-battle-card-trait {
+  position: relative;
+  z-index: 1;
+}
+
+.hr-battle-card-class {
+  max-width: 11ch;
+  color: #eef4fa;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: 1.15rem;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hr-battle-card-trait {
+  color: #9ec5d9;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hr-battle-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.hr-battle-stat {
+  padding: 0.85rem 0.75rem;
+  border: 1px solid rgba(186, 210, 230, 0.16);
+  border-radius: 12px;
+  background: rgba(3, 5, 8, 0.74);
+}
+
+.hr-battle-stat dt {
+  margin: 0 0 0.35rem;
+  color: #7f91a3;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hr-battle-stat dd {
+  margin: 0;
+  color: #eef4fa;
+  font-family: "Eurostile", "Bank Gothic", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  font-size: 1.5rem;
+}
+
+.hr-battle-special-label {
+  color: #7f91a3;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hr-battle-special-value {
+  color: #cff147;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 /* ─── Responsive ────────────────────────────────────────────────────────── */
 
 @media (max-width: 1200px) {
@@ -594,6 +1337,11 @@ body::before {
     gap: 1.2rem;
   }
 
+  .hr-site-nav {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .hr-taglines {
     margin-top: -1.1rem;
   }
@@ -608,7 +1356,7 @@ body::before {
   }
 
   .hr-mint-frame {
-    height: 620px;
+    height: 515px;
   }
 
   .hr-image-terminal-line,
@@ -626,5 +1374,78 @@ body::before {
 
   .hr-botlist-list {
     gap: 0;
+  }
+
+  .hr-arena-content {
+    padding-top: 1.25rem;
+  }
+
+  .hr-arena-title {
+    max-width: none;
+    font-size: clamp(1.85rem, 9vw, 3rem);
+  }
+
+  .hr-arena-layout,
+  .hr-card-viewer-panel,
+  .hr-battle-grid,
+  .hr-battle-card-frame,
+  .hr-arena-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hr-arena-hero-panel,
+  .hr-card-viewer-panel,
+  .hr-arena-roster-panel,
+  .hr-arena-overview-panel,
+  .hr-arena-cards-panel {
+    padding: 1rem;
+  }
+
+  .hr-card-form-row {
+    flex-direction: column;
+  }
+
+  .hr-card-form-button {
+    width: 100%;
+  }
+
+  .hr-card-meta-row {
+    flex-direction: column;
+  }
+
+  .hr-card-meta-row dd {
+    text-align: left;
+  }
+
+  .hr-viewer-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hr-card-stage {
+    min-height: 560px;
+    padding: 1.5rem 0.5rem 2rem;
+  }
+
+  .hr-card-viewer-copy {
+    padding-top: 0;
+  }
+
+  .hr-float-card-shell {
+    width: min(100%, 320px);
+    transform:
+      rotateX(14deg)
+      rotateY(-20deg)
+      rotateZ(5deg)
+      translateZ(40px);
+  }
+
+  .hr-battle-card-art {
+    min-height: 180px;
+  }
+
+  .hr-battle-card-header,
+  .hr-battle-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
