@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-
+const whitelistedProjects = ["moonbirds", "the coffee collection", "bored ape yacht club","@humanrobotnft to request access"];
 const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "BAYC", "THE COFFEE COLLECITON", 
   "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "BAYC", "THE COFFEE COLLECITON", 
   "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "BAYC", "THE COFFEE COLLECITON", 
