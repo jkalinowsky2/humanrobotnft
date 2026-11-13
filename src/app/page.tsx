@@ -3,6 +3,7 @@
 //NEW CODE///
 import Image from "next/image";
 import Link from "next/link";
+import RobotViewer from "./RobotViewer";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 const whitelistedProjects = ["moonbirds", "the coffee collection", "bored ape yacht club","@humanrobotnft to request access"];
@@ -12,6 +13,7 @@ const botlistItems = ["MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENC
   "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "BAYC", "THE COFFEE COLLECITON", 
   "MOONBIRDS", "MYTHICS", "ODDITIES", "NIGHTGLYDERS", "TRENCHERS", "GOBS", "BAYC", "THE COFFEE COLLECITON", 
   "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" , "ACCESS DENIED"];
+const showMintInformation = false;
 const terminalBaseDelaySeconds = 0.2;
 const terminalLineStepSeconds = 0.9;
 const botlistStepSeconds = 0.07;
@@ -129,6 +131,7 @@ export default function Home() {
           </p>
         </div>
 
+        {showMintInformation && <>
         <section className="hr-panel hr-image-panel">
           {/* <p className="hr-image-banner">: coming soon to ApeChain</p> */}
           <Image
@@ -198,15 +201,25 @@ export default function Home() {
           </div>
         </section>
 
+        </>}
+
+        <p className="hr-introduction">
+          humanRobot is a collection of illustrated robots with distinct personalities,
+          weapons, and battle stats. Find your robot, explore its artwork, and discover
+          how its attack, defense, magic, speed, and special abilities stack up.
+          Every unit has a story. Choose yours.
+        </p>
+
+        <RobotViewer />
+
         <a
-          href="https://opensea.io"
+          href="https://opensea.io/collection/humanrobot-331697126"
           className="hr-cta-link"
           target="_blank"
           rel="noopener noreferrer"
         >
           View on OpenSea
         </a>
-        <p className="hr-mint-note">mint site coming soon</p>
 
         <footer className="hr-footer">
           &copy; {new Date().getFullYear()} HumanRobot. All signals reserved.

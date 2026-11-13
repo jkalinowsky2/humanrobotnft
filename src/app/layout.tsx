@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "HumanRobot",
-  description: "A one-time art drop on ApeChain.",
+  description: "A one-time art drop on Ethereum.",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
