@@ -40,7 +40,7 @@ export async function GET(request: Request) {
           <span style={{ color: "#cff147", fontSize: 22 }}>humanRobotNFT.com</span>
         </div>
       </div>,
-      { width: 1200, height: social ? 630 : 880, headers: { "Content-Disposition": `inline; filename="humanrobot-${token}-battle-card.png"` } }
+      { width: 1200, height: social ? 630 : 880, headers: { "Cache-Control": "no-store", "Content-Disposition": `inline; filename="humanrobot-${token}-battle-card.png"` } }
     );
   } catch {
     return new Response("Could not generate the battle card. Please try again.", { status: 502 });

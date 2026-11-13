@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const protocol = host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https";
   const origin = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
   const url = new URL(`/robots/${token}`, origin).toString();
-  const image = new URL(`/api/battle-card?token=${token}&format=social`, origin).toString();
+  const image = new URL(`/api/battle-card?v=2&token=${token}&format=social`, origin).toString();
   const title = `humanRobot #${token} — Battle Card`;
   const description = `Explore humanRobot #${token}'s artwork and battle stats. Battle stats are preliminary.`;
   return {
@@ -37,7 +37,7 @@ export default async function RobotSharePage({ params }: Props) {
     <main className="hr-page">
       <div className="hr-content" style={{ paddingTop: "3rem" }}>
         <h1 className="hr-panel-title hr-panel-accent">humanRobot #{token}</h1>
-        <img src={`/api/battle-card?token=${token}`} alt={`humanRobot #${token} artwork and battle stats`} width={1200} height={880} style={{ width: "100%", height: "auto", borderRadius: 18 }} />
+        <img src={`/api/battle-card?v=2&token=${token}`} alt={`humanRobot #${token} artwork and battle stats`} width={1200} height={880} style={{ width: "100%", height: "auto", borderRadius: 18 }} />
         <Link className="hr-cta-link" href={`/?token=${token}#robot-viewer`}>Explore this robot</Link>
       </div>
     </main>

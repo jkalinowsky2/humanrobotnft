@@ -39,7 +39,7 @@ export default function RobotViewer() {
   const [shareBusy, setShareBusy] = useState(false);
   const [cardImage, setCardImage] = useState<Blob | null>(null);
   const [copied, setCopied] = useState(false);
-  const cardUrl = `/api/battle-card?token=${tokenId}`;
+  const cardUrl = `/api/battle-card?v=2&token=${tokenId}`;
   const xUrl = `https://x.com/intent/tweet?${new URLSearchParams({
     text: `Battle Stats for humanRobot #${tokenId} #humanRobot`,
   })}`;
