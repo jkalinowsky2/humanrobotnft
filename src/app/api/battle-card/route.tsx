@@ -35,7 +35,10 @@ export async function GET(request: Request) {
           </div>
           <img src={src} width={social ? 460 : 648} height={social ? 460 : 648} style={{ borderRadius: 22 }} />
         </div>
-        <div style={{ display: "flex", marginTop: social ? 20 : 32, color: "#8594a2", fontSize: 19 }}>Battle stats are preliminary, algorithm is still in development.</div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: social ? 20 : 32, color: "#8594a2", fontSize: 19 }}>
+          <span>Battle stats are preliminary, algorithm is still in development.</span>
+          <span style={{ color: "#cff147", fontSize: 22 }}>humanRobotNFT.com</span>
+        </div>
       </div>,
       { width: 1200, height: social ? 630 : 880, headers: { "Content-Disposition": `inline; filename="humanrobot-${token}-battle-card.png"` } }
     );

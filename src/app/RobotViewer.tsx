@@ -36,21 +36,54 @@ export default function RobotViewer() {
   }, []);
 
   const [shareStatus, setShareStatus] = useState("");
+  const [shareBusy, setShareBusy] = useState(false);
+  const [cardImage, setCardImage] = useState<Blob | null>(null);
+  const [copied, setCopied] = useState(false);
   const cardUrl = `/api/battle-card?token=${tokenId}`;
+  const xUrl = `https://x.com/intent/tweet?${new URLSearchParams({
+    text: `Battle Stats for humanRobot #${tokenId} #humanRobot`,
+  })}`;
 
-  function shareOnX() {
-    const origin = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
-    const url = new URL(`/robots/${tokenId}`, origin);
-    if (["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)) {
-      setShareStatus("Image previews on X will work once this site is published. You can still download the card below.");
-      return;
+  useEffect(() => {
+    const controller = new AbortController();
+    setCardImage(null);
+    setCopied(false);
+    setShareStatus("Preparing card image…");
+    fetch(cardUrl, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Image unavailable");
+        return response.blob();
+      })
+      .then((blob) => {
+        if (controller.signal.aborted) return;
+        setCardImage(blob);
+        setShareStatus("");
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setShareStatus("Could not prepare the image. Load the robot again to retry, or use Download card image.");
+        }
+      });
+    return () => controller.abort();
+  }, [cardUrl, attempt]);
+
+  async function shareOnX() {
+    if (!cardImage || shareBusy) return;
+    setShareBusy(true);
+    setCopied(false);
+    try {
+      if (!navigator.clipboard?.write || typeof ClipboardItem === "undefined") {
+        throw new Error("Image copying unavailable");
+      }
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": cardImage })]);
+      setCopied(true);
+      setShareStatus("Card copied! Paste into your X post with ⌘V on Mac or Ctrl+V on Windows. If X didn’t open, use Open X below.");
+      window.open(xUrl, "_blank", "noopener,noreferrer");
+    } catch {
+      setShareStatus("Your browser couldn’t copy the image. Download the card below, open X, and attach it using the photo button.");
+    } finally {
+      setShareBusy(false);
     }
-    setShareStatus("");
-    const params = new URLSearchParams({
-      text: `Meet humanRobot #${tokenId} #humanRobot`,
-      url: url.toString(),
-    });
-    window.open(`https://x.com/intent/tweet?${params}`, "_blank", "noopener,noreferrer");
   }
 
   function loadToken(event: FormEvent<HTMLFormElement>) {
@@ -65,6 +98,8 @@ export default function RobotViewer() {
       setValidation("No battle stats found for that token. Choose a token from 1 to 1111.");
       return;
     }
+    setCardImage(null);
+    setCopied(false);
     setShareStatus("");
     setValidation("");
     setTokenId(normalizedId);
@@ -89,7 +124,7 @@ export default function RobotViewer() {
             aria-invalid={!!validation}
             aria-describedby="robot-validation"
           />
-          <button type="submit" className="hr-cta-link">Load Robot</button>
+          <button type="submit" className="hr-cta-link" disabled={shareBusy}>Load Robot</button>
         </div>
         <p id="robot-validation" role="alert" className="hr-robot-validation">{validation}</p>
       </form>
@@ -128,11 +163,12 @@ export default function RobotViewer() {
       <p className="hr-robot-caption" aria-live="polite">Token #{tokenId}</p>
       </div>
       <div className="hr-robot-share">
-        <button type="button" className="hr-cta-link" onClick={shareOnX}>
-          Share card on X
+        <button type="button" className="hr-cta-link" onClick={shareOnX} disabled={!cardImage || shareBusy}>
+          {shareBusy ? "Copying…" : "Copy card & open X"}
         </button>
-        <p className="hr-share-status" role="status">{shareStatus}</p>
+        <p className="hr-share-status" role="status">{shareStatus || "Copy the image, then paste it into X with ⌘V / Ctrl+V."}</p>
         <div className="hr-share-actions">
+          {(copied || shareStatus.includes("couldn’t copy")) && <a className="hr-cta-link" href={xUrl} target="_blank" rel="noopener noreferrer">Open X</a>}
           <a href={cardUrl} download={`humanrobot-${tokenId}-battle-card.png`}>Download card image</a>
         </div>
       </div>
