@@ -13,9 +13,10 @@ const profiles: Record<string, BattleProfile> = battleStats.tokens;
 
 // Final HumanRobot artwork hosted in the public R2 bucket.
 const TOKEN_IMAGE_BASE_URL =
-  "https://pub-4d9eea27c62a4697bbafb2d2395cbca3.r2.dev/illustrated_light";
+  "https://pub-4d9eea27c62a4697bbafb2d2395cbca3.r2.dev";
 
 export default function RobotViewer() {
+  const [artMode, setArtMode] = useState<"light" | "dark">("light");
   const [input, setInput] = useState("1");
   const [tokenId, setTokenId] = useState("1");
   const [attempt, setAttempt] = useState(0);
@@ -39,7 +40,7 @@ export default function RobotViewer() {
   const [shareBusy, setShareBusy] = useState(false);
   const [cardImage, setCardImage] = useState<Blob | null>(null);
   const [copied, setCopied] = useState(false);
-  const cardUrl = `/api/battle-card?v=2&token=${tokenId}`;
+  const cardUrl = `/api/battle-card?v=2&token=${tokenId}&mode=${artMode}`;
   const xUrl = `https://x.com/intent/tweet?${new URLSearchParams({
     text: `Battle Stats for humanRobot #${tokenId} #humanRobot`,
   })}`;
@@ -84,6 +85,15 @@ export default function RobotViewer() {
     } finally {
       setShareBusy(false);
     }
+  }
+
+  function changeArtMode(mode: "light" | "dark") {
+    if (mode === artMode || shareBusy) return;
+    setArtMode(mode);
+    setStatus("loading");
+    setCardImage(null);
+    setCopied(false);
+    setShareStatus("");
   }
 
   function loadToken(event: FormEvent<HTMLFormElement>) {
@@ -140,11 +150,19 @@ export default function RobotViewer() {
         </dl>
       </section>
       <div className="hr-robot-artwork">
+      <div className="hr-art-toggle" role="group" aria-label="Robot artwork mode">
+        {(["light", "dark"] as const).map((mode) => (
+          <button key={mode} type="button" aria-pressed={artMode === mode}
+            disabled={shareBusy} onClick={() => changeArtMode(mode)}>
+            {mode === "light" ? "Light" : "Dark"}
+          </button>
+        ))}
+      </div>
       <div className="hr-robot-image" aria-busy={status === "loading"}>
         <Image
-          key={`${tokenId}-${attempt}`}
-          src={`${TOKEN_IMAGE_BASE_URL}/${tokenId}.png`}
-          alt={`Robot artwork for token #${tokenId}`}
+          key={`${tokenId}-${artMode}-${attempt}`}
+          src={`${TOKEN_IMAGE_BASE_URL}/illustrated_${artMode}/${tokenId}.png`}
+          alt={`${artMode === "light" ? "Light" : "Dark"} robot artwork for token #${tokenId}`}
           width={640}
           height={640}
           unoptimized
@@ -156,7 +174,7 @@ export default function RobotViewer() {
           <p className="hr-robot-image-message" role="status">
             {status === "loading"
               ? `Loading token #${tokenId}…`
-              : `Could not load token #${tokenId}. Try another ID or load again.`}
+              : `Could not load ${artMode} artwork for token #${tokenId}. Try another ID or load again.`}
           </p>
         )}
       </div>

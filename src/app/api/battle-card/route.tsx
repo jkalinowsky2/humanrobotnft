@@ -6,6 +6,7 @@ export const runtime = "nodejs";
 export async function GET(request: Request) {
   const query = new URL(request.url).searchParams;
   const token = query.get("token") ?? "";
+  const mode = query.get("mode") === "dark" ? "dark" : "light";
   const social = query.get("format") === "social";
   if (!Object.prototype.hasOwnProperty.call(battleStats.tokens, token)) {
     return new Response("Unknown token", { status: 404 });
@@ -13,7 +14,7 @@ export async function GET(request: Request) {
   const profile = battleStats.tokens[token as keyof typeof battleStats.tokens];
   try {
     const artwork = await fetch(
-      `https://pub-4d9eea27c62a4697bbafb2d2395cbca3.r2.dev/illustrated_light/${token}.png`,
+      `https://pub-4d9eea27c62a4697bbafb2d2395cbca3.r2.dev/illustrated_${mode}/${token}.png`,
       { signal: AbortSignal.timeout(15000) }
     );
     if (!artwork.ok) throw new Error("Artwork unavailable");

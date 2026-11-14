@@ -1581,3 +1581,9 @@ a {
 .hr-share-actions { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 .hr-share-actions > a:last-child { text-decoration: underline; font-size: 0.85rem; }
 .hr-cta-link:disabled { opacity: 0.6; cursor: wait; }
+
+.hr-art-toggle { display: flex; justify-content: flex-end; gap: 0.25rem; margin-bottom: 0.75rem; }
+.hr-art-toggle button { border: 1px solid #34414b; border-radius: 999px; padding: 0.5rem 1rem; background: #0b1016; color: #a6b2be; cursor: pointer; font: inherit; font-size: 0.8rem; }
+.hr-art-toggle button[aria-pressed="true"] { color: #cff147; border-color: #cff147; background: #202a12; }
+.hr-art-toggle button:focus-visible { outline: 2px solid #cff147; outline-offset: 3px; }
+.hr-art-toggle button:disabled { opacity: 0.6; cursor: wait; }
