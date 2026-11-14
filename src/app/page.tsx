@@ -204,10 +204,8 @@ export default function Home() {
         </>}
 
         <p className="hr-introduction">
-          humanRobot is a collection of illustrated robots with distinct personalities,
-          weapons, and battle stats. Find your robot, explore its artwork, and discover
-          how its attack, defense, magic, speed, and special abilities stack up.
-          Every unit has a story. Choose yours.
+          humanRobot is a collection of robots sent to destry your NFTs.  
+
         </p>
 
         <RobotViewer />
